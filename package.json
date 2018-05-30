@@ -1,0 +1,39 @@
+{
+  "name": "geth-supervisor",
+  "version": "0.1.0",
+  "description": "Supervises a geth client running on AWS ECS.",
+  "license": "ISC",
+  "homepage": "https://github.com/christophgysin/geth-supervisor#readme",
+  "bugs": {
+    "url": "https://github.com/christophgysin/geth-supervisor/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christophgysin/geth-supervisor.git"
+  },
+  "author": {
+    "name": "Chrsitoph Gysin",
+    "email": "christoph.gysin@gmail.com"
+  },
+  "main": "index.js",
+  "bin": {
+    "supervisor": "./index.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.248.1",
+    "bunyan-wrapper": "^1.0.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2"
+  }
+}
