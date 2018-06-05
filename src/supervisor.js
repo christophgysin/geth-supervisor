@@ -54,14 +54,21 @@ const isSynced = async () => {
   return false;
 };
 
-process.once('SIGTERM', () => {
-  alb.deregister()
-    .then(process.exit);
-});
-
 const sleep = ms => new Promise(done => setTimeout(done, ms));
 
 const supervisor = async () => {
+  const args = process.argv.slice(2);
+  geth.spawn(args, () => alb.deregister());
+
+  process.once('SIGTERM', () => {
+    log.debug('got SIGTERM, shutting down');
+    alb.deregister()
+      .then(() => {
+        geth.terminate();
+        process.exit(0);
+      });
+  });
+
   /* eslint-disable no-await-in-loop,no-constant-condition */
   while (true) {
     while (!(await isSynced())) {
