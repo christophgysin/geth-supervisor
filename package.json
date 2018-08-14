@@ -1,6 +1,6 @@
 {
   "name": "geth-supervisor",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Supervises a geth client running on AWS ECS.",
   "license": "ISC",
   "homepage": "https://github.com/christophgysin/geth-supervisor#readme",
