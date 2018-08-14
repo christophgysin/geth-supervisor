@@ -21,3 +21,4 @@ Following environment variables can be configured:
 | TARGET_GROUP_ARN |    x     |           |                |
 | POLL_INTERVAL    |          | 10000     | Interval in ms |
 | LOG_LEVEL        |          | info      |                |
+| MINIMUM_PEERS    |          | 3         |                |

@@ -8,8 +8,18 @@ const GETH_ADDRESS = process.env.GETH_ADDRESS || 'localhost';
 const GETH_PORT = process.env.GETH_PORT || '8545';
 const GETH_RPC_URL = `http://${GETH_ADDRESS}:${GETH_PORT}`;
 
+// minimum number of peers needed
+const MINIMUM_PEERS = process.env.MINIMUM_PEERS || 3;
+
+// register if this many peers
+const REGISTER_PEERS = MINIMUM_PEERS + 1;
+// deregister if falling below this many peers
+const DEREGISTER_PEERS = MINIMUM_PEERS;
+
 const geth = new Geth(GETH_RPC_URL);
 const alb = new ALB(TARGET_GROUP_ARN, GETH_PORT);
+
+let synced = false;
 
 const isSynced = async () => {
   let peers;
@@ -21,8 +31,11 @@ const isSynced = async () => {
     return false;
   }
 
-  if (peers < 3) {
+  const minPeerCount = synced ? DEREGISTER_PEERS : REGISTER_PEERS;
+
+  if (peers < minPeerCount) {
     log.info('peers:', peers);
+    synced = false;
     return false;
   }
 
@@ -35,6 +48,7 @@ const isSynced = async () => {
   }
 
   if (state === false) {
+    synced = true;
     return true;
   }
 
